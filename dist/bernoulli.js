@@ -3,15 +3,57 @@
   Date:    10/27/2019
   Purpose: Solves Bernoulli's Fluid Function for incompressible fluid flow
   
+  Prerequisites: jsConvert  -->  
+
   Input:   Inlet Properties (Pressure, Velocity, Height, Fluid Density), 
            Outlet Properties (same properties as inlet)
   Output:  The solver finds the missing data for the Inlet and Outlet 
            properties and returns an object of all the properties.
 */
-$(function() {
 
-  function bernoulli(options) {
-    var $o = $.extend({
+// Function to replicate jQuery's $.extend in vanilla JS
+// Credit: Chris Ferdinandi  https://gomakethings.com/vanilla-javascript-version-of-jquery-extend/
+var extend = function () {
+
+	// Variables
+	var extended = {};
+	var deep = false;
+	var i = 0;
+	var length = arguments.length;
+
+	// Check if a deep merge
+	if ( Object.prototype.toString.call( arguments[0] ) === '[object Boolean]' ) {
+		deep = arguments[0];
+		i++;
+	}
+
+	// Merge the object into the extended object
+	var merge = function (obj) {
+		for ( var prop in obj ) {
+			if ( Object.prototype.hasOwnProperty.call( obj, prop ) ) {
+				// If deep merge and property is an object, merge properties
+				if ( deep && Object.prototype.toString.call(obj[prop]) === '[object Object]' ) {
+					extended[prop] = extend( true, extended[prop], obj[prop] );
+				} else {
+					extended[prop] = obj[prop];
+				}
+			}
+		}
+	};
+
+	// Loop through each object and conduct a merge
+	for ( ; i < length; i++ ) {
+		var obj = arguments[i];
+		merge(obj);
+	}
+	return extended;
+};
+
+
+
+function bernoulli(options) {
+   
+    var $o = extend({
       returnSIUnits: true,
       sameMedium: true,
       neglectHeight: true,
@@ -239,33 +281,4 @@ $(function() {
     
     init(0);
   }
-  
-  
-  function foo() {
-    var obj = {
-      returnSIunits: true,
-      sameMedium: true,
-      neglectHeight: true,
-      g: {val: 9.81, unit:"m/s2"},
     
-      p1: {val: null, unit:"P"},
-      rho1: {val: 1000, unit:"kg/m3"},
-      v1:{val:1.96, unit:"m/s"},
-      Q1: {val: null, unit: null},
-      A1: {val: null, unit: null},
-      h1: {val:0, unit:"m"},
-  
-  
-      p2: {val: 101000, unit:"P"},
-      rho2: {val: null, unit:"kg/m3"},
-      v2: {val:25.5, unit:"m/s"},
-      Q2: {val: null, unit: null},
-      A2: {val: null, unit: null},
-      h2: {val:0, unit:"m"} 
-    };
-    console.log(bernoulli(obj));
-  }
-  
-  foo();
-  
-});

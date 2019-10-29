@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<head>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/dfaunce/jsConvert@v1.0.3/dist/jsConvert.js"></script>
+    <script type="text/javascript" src="bernoulli.js"></script>
+</head>
+
+<body>
+    <div id="inputs">
+
+    </div>
+    <div id="outputs">
+
+    </div>
+</body>
+
+<script>
+    var obj = {
+      returnSIunits: true,
+      sameMedium: true,
+      neglectHeight: true,
+      g: {val: 9.81, unit:"m/s2"},
+    
+      p1: {val: null, unit:"P"},
+      rho1: {val: 1000, unit:"kg/m3"},
+      v1:{val:1.96, unit:"m/s"},
+      Q1: {val: null, unit: null},
+      A1: {val: null, unit: null},
+      h1: {val:0, unit:"m"},
+  
+  
+      p2: {val: 101000, unit:"P"},
+      rho2: {val: null, unit:"kg/m3"},
+      v2: {val:25.5, unit:"m/s"},
+      Q2: {val: null, unit: null},
+      A2: {val: null, unit: null},
+      h2: {val:0, unit:"m"} 
+    };
+    var $b = bernoulli(obj);
+
+    var $inputs = document.getElementById("inputs").innerHTML = printit(obj, "");
+    var $outputs = document.getElementById("outputs").innerHTML = printit($b, "");
+
+
+    function printit($o, str) {
+        str = "\n";
+        str += `\n<strong>Return SI Units</strong>: ${$o.returnSIunits.toString()}\n`;
+        str += `<strong>Same Medium</strong>: ${$o.sameMedium.toString()}\n`;
+        str += `<strong>Neglect Height</strong>: ${$o.neglectHeight.toString()}\n`;
+        str += `<strong>P<sub>1</sub></strong>: ${$o.p1.val.toString()} [${$o.p1.unit.toString()}]\n`;
+        str += `<strong>Rho<sub>1</sub></strong>: ${$o.rho1.val.toString()} [${$o.rho1.unit.toString()}]\n`;
+        str += `<strong>v<sub>1</sub></strong>: ${$o.v1.val.toString()} [${$o.v1.unit.toString()}]\n`;
+        str += `<strong>Q<sub>1</sub></strong>: ${$o.Q1.val.toString()} [${$o.Q1.unit.toString()}]\n`;
+        str += `<strong>A<sub>1</sub></strong>: ${$o.A1.val.toString()} [${$o.A1.unit.toString()}]\n`;
+        str += `<strong>h<sub>1</sub></strong>: ${$o.h1.val.toString()} [${$o.h1.unit.toString()}]\n`;
+        str += `<strong>P<sub>2</sub></strong>: ${$o.p2.val.toString()} [${$o.p2.unit.toString()}]\n`;
+        str += `<strong>Rho<sub>2</sub></strong>: ${$o.rho2.val.toString()} [${$o.rho2.unit.toString()}]\n`;
+        str += `<strong>v<sub>2</sub></strong>: ${$o.v2.val.toString()} [${$o.v2.unit.toString()}]\n`;
+        str += `<strong>Q<sub>2</sub></strong>: ${$o.Q2.val.toString()} [${$o.Q2.unit.toString()}]\n`;
+        str += `<strong>A<sub>2</sub></strong>: ${$o.A2.val.toString()} [${$o.A2.unit.toString()}]\n`;
+        str += `<strong>h<sub>2</sub></strong>: ${$o.h2.val.toString()} [${$o.h2.unit.toString()}]\n`;
+        return str;
+    }
+    
+
+</script>
+
+</html>
